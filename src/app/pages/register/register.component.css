@@ -1,0 +1,21 @@
+.register-card
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 1fr);
+
+}
+
+#system-register
+{
+    padding: 1.5rem;
+    background-color: blueviolet;
+    border-right: 1px solid black;
+}
+
+.register-flex{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 5rem auto;
+    
+}
