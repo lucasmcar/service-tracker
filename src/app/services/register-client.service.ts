@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { getApp,  } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
-import { Client } from '../pages/register-client/model/client';
+import { Client } from '../models/client';
 
 
 @Injectable({
@@ -18,7 +18,7 @@ export class RegisterClientService {
   }
 
   addClient(client: Client){
-    return addDoc(collection(this.firestore, 'clients'), client);
+    return addDoc(collection(this.firestore, 'clients'), {...client, createdAt: serverTimestamp() });
   }
 
   getClients(userId: string){

@@ -7,14 +7,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './shared/material/material.module';
-import { LoginComponent } from './pages/login/login.component';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { LoginComponent } from './components/login/login.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ServiceListComponent } from './pages/service-list/service-list.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { ReactiveFormsModule  } from '@angular/forms';
-import { RegisterUserComponent } from './pages/register-user/register-user.component';
-
+import { ServiceListComponent } from './components/service-list/service-list.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { AddServiceComponent } from './components/add-service/add-service.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ServiceDetailsComponent } from './components/service-details/service-details.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { RegisterUserComponent } from './pages/register-user/register-user.compo
     SettingsComponent,
     ServiceListComponent,
     RegisterComponent,
-    RegisterUserComponent
-   
+    RegisterUserComponent,
+    AddServiceComponent,
+    ProgressBarComponent,
+    ServiceDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,12 +41,10 @@ import { RegisterUserComponent } from './pages/register-user/register-user.compo
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

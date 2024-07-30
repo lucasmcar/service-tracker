@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ServiceList } from '../pages/service-list/models/servicelist';
+import { ServiceList } from '../models/servicelist';
 //import { first, tap } from 'rxjs';
-import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
 import { getApp } from 'firebase/app';
 
 
@@ -28,13 +28,18 @@ export class ServicesService {
     );
   }*/
 
-  addService(service: ServiceList){
+  addService(service: ServiceList | any){
     return addDoc(collection(this.firestore, 'services'), service);
   }
 
   getServiceByClient(clientId: string){
     const q = query(collection(this.firestore, 'services'), where('clientId', '==', clientId));
     return getDocs(q);
+  }
+
+  getService(servicoId: string) {
+    const servicoDocRef = doc(this.firestore, 'services', servicoId);
+    return getDoc(servicoDocRef);
   }
 
   updateService(serviceId: string, s: ServiceList){

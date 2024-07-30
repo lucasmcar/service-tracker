@@ -3,28 +3,38 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'service/details', 
+    loadChildren: ()=>import('./components/service-details/service-details/service-details.module')
+    .then(m => m.ServiceDetailsModule)
+  },
+  {
+    path: 'register/service', 
+    loadChildren: ()=>import('./components/add-service/add-service/add-service.module')
+    .then(m => m.AddServiceModule)
+  },
+  {
     path: 'register/client', 
-    loadChildren: ()=>import('./pages/register-client/register-client/register-client.module')
+    loadChildren: ()=>import('./components/register-client/register-client/register-client.module')
     .then(m => m.RegisterClientModule)
   },
   {
     path: 'register/user', 
-    loadChildren: ()=>import('./pages/register-user/register-user/register-user.module')
+    loadChildren: ()=>import('./components/register-user/register-user/register-user.module')
     .then(m => m.RegisterUserModule)
   },
   {
     path: 'register', 
-    loadChildren: ()=>import('./pages/register/register/register.module')
+    loadChildren: ()=>import('./components/register/register/register.module')
     .then(m => m.RegisterModule)
   },
   {
     path: 'login', 
-    loadChildren: ()=>import('./pages/login/login/login.module')
+    loadChildren: ()=>import('./components/login/login/login.module')
     .then(m => m.LoginModule)
   },
   {
     path: 'service-list', 
-    loadChildren: ()=>import('./pages/service-list/service-list/service-list.module')
+    loadChildren: ()=>import('./components/service-list/service-list/service-list.module')
     .then(m => m.ServiceListModule)
   },
   {

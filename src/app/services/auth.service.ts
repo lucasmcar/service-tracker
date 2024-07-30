@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { getApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { doc, getDoc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore';
-import { RegisterUser } from '../pages/register-user/model/register-user';
+import { RegisterUser } from '../models/register-user';
 import { BehaviorSubject } from 'rxjs';
 
 

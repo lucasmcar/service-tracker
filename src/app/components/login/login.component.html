@@ -1,7 +1,7 @@
 <mat-toolbar>
     <span>Service Track</span>
     <span class="spacer"></span>
-    
+
     <button mat-button routerLink="/register">Cadastre-se</button>
 
 </mat-toolbar>
@@ -16,11 +16,11 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Senha</mat-label>
-                        <input formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
-                        <button mat-icon-button matSuffix (click)="clickEvent($event)"
-                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
-                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
+                <input formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
+                <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide()">
+                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
 
             <button mat-flat-button>

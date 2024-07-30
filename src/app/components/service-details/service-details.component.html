@@ -1,0 +1,11 @@
+<mat-toolbar>
+    <span>Detalhes</span>
+</mat-toolbar>
+<div *ngFor="let servico of servico">
+    <mat-card>
+      <mat-card-title>{{ servico.name }}</mat-card-title>
+      <mat-card-content>
+        <app-progress-bar [steps]="servico.steps"></app-progress-bar>
+      </mat-card-content>
+    </mat-card>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceList } from './models/servicelist';
+import { ServiceList } from '../../models/servicelist';
 import { ServicesService } from '../../services/services.service';
 import { catchError, Observable, of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -12,19 +12,19 @@ import { Router } from '@angular/router';
 })
 export class ServiceListComponent implements OnInit {
 
-  services$ : Observable<ServiceList[]>;
+  //services$ : Observable<ServiceList[]>;
   displayedColumns = ['service', 'code'];
   userName: string | undefined;
 
   constructor(private listService: ServicesService, private authService: AuthService, private router: Router ){
     //this.services = [];
-    this.services$ = this.listService.listServices().pipe(
+    /*this.services$ = this.listService.listServices().pipe(
       catchError(
         error => {
           return of([])
         }
       )
-    );
+    );*/
   }
 
   ngOnInit(): void {
