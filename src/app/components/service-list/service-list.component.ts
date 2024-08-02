@@ -4,6 +4,7 @@ import { ServicesService } from '../../services/services.service';
 import { catchError, Observable, of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-service-list',
@@ -13,21 +14,28 @@ import { Router } from '@angular/router';
 export class ServiceListComponent implements OnInit {
 
   //services$ : Observable<ServiceList[]>;
-  displayedColumns = ['service', 'code'];
-  userName: string | undefined;
+  displayedColumns: string[] = ['service', 'code', 'description', 'clienteId', 'actions'];
+  services: any[] = [];
+  userName = '';
+  editForm: FormGroup;
+  editIndex: number | null = null;
 
-  constructor(private listService: ServicesService, private authService: AuthService, private router: Router ){
+  constructor(private listService: ServicesService, private fb: FormBuilder, private authService: AuthService, private router: Router ){
     //this.services = [];
-    /*this.services$ = this.listService.listServices().pipe(
-      catchError(
-        error => {
-          return of([])
-        }
-      )
-    );*/
+    this.editForm = this.fb.group({
+      service: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+  }
+
+  loadServices() {
+    this.listService.getService().subscribe(services => {
+      this.services = services;
+    });
   }
 
   ngOnInit(): void {
+    this.loadServices();
     this.authService.user$.subscribe(async (user) => {
       if (user) {
         const userProfile = await this.authService.getUserProfile(user.uid);
@@ -35,6 +43,38 @@ export class ServiceListComponent implements OnInit {
           this.userName = userProfile['companyName'];
         }
       }
+    });
+  }
+
+  /*editService(id: string) {
+    this.listService.updateService(id).subscribe(()=>{
+
+    })
+  }*/
+
+  startEdit(index: number) {
+    this.editIndex = index;
+    const service = this.services[index];
+    this.editForm.patchValue(service);
+  }
+
+  cancelEdit() {
+    this.editIndex = null;
+  }
+
+
+  saveEdit(id: string) {
+    if (this.editForm.valid) {
+      this.listService.updateService(id, this.editForm.value).subscribe(() => {
+        this.loadServices();
+        this.editIndex = null;
+      });
+    }
+  }
+
+  deleteService(id: string) {
+    this.listService.deleteService(id).subscribe(() => {
+      this.loadServices(); // Recarregar os serviços após a deleção
     });
   }
   
@@ -48,7 +88,11 @@ export class ServiceListComponent implements OnInit {
   }
 
   onFabClick(){
-    
+    try{
+      this.router.navigate(['/register/service']);
+    }catch(err) { 
+      console.error('Erro', err);
+    }
   }
 
 }

@@ -4,6 +4,7 @@ import { ServiceList } from '../models/servicelist';
 //import { first, tap } from 'rxjs';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
 import { getApp } from 'firebase/app';
+import { from, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -33,23 +34,35 @@ export class ServicesService {
   }
 
   getServiceByClient(clientId: string){
-    const q = query(collection(this.firestore, 'services'), where('clientId', '==', clientId));
+    const q = query(collection(this.firestore, 'services'), where('clienteId', '==', clientId));
     return getDocs(q);
   }
 
-  getService(servicoId: string) {
-    const servicoDocRef = doc(this.firestore, 'services', servicoId);
-    return getDoc(servicoDocRef);
+  getService(): Observable<any[]> {
+    const servicesCollection = collection(this.firestore, 'services');
+    return from(getDocs(servicesCollection).then(snapshot => {
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }));
   }
 
-  updateService(serviceId: string, s: ServiceList){
+  /*updateService(serviceId: string, s: ServiceList){
     const serviceDocRef = doc(this.firestore, 'services', serviceId);
     return updateDoc(serviceDocRef, {s});
-  }
+  }*/
 
-  deleteService(serviceId: string){
+    updateService(id: string, service: any): Observable<void> {
+      const serviceDoc = doc(this.firestore, 'services', id);
+      return from(updateDoc(serviceDoc, service).then(() => {}));
+    }
+
+  /*deleteService(serviceId: string){
     const serviceDocRef = doc(this.firestore, 'services', serviceId);
     return deleteDoc(serviceDocRef);
+  }*/
+
+  deleteService(id: string): Observable<void> {
+    const serviceDoc = doc(this.firestore, 'services', id);
+    return from(deleteDoc(serviceDoc).then(() => {}));
   }
 
   async addStage(userId: string, serviceId: string, stageData: any) {

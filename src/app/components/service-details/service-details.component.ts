@@ -21,13 +21,13 @@ export class ServiceDetailsComponent implements OnInit{
 
   async ngOnInit() {
     this.servicoId = '';
-    this.authService.user$.subscribe(async user => {
+    /*this.authService.user$.subscribe(async user => {
       if (user) {
         this.servicoId = this.route.snapshot.paramMap.get('servicoId')!;
         const doc = await this.serviceService.getService(this.servicoId);
         this.servico = doc.data();
       }
-    });
+    });*/
   }
 
 }

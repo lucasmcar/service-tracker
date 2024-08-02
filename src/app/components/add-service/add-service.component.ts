@@ -29,7 +29,6 @@ export class AddServiceComponent implements OnInit{
   }
 
   onAddService(){
-    if (this.formAddService.valid) {
       this.authService.user$.subscribe(async user => {
         if (user) {
           const servico = {
@@ -48,7 +47,7 @@ export class AddServiceComponent implements OnInit{
           }
         }
       });
-    }
+    
   }
 
   get steps(): FormArray {
